@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+
+  wordpress:
+    build:
+      context: ./build
+      dockerfile: Dockerfile-edd
+      args:
+        wp_version: 4.7.2
+        edd_version: 2.6.17
+    image: monetivo/edd:4.7.2-2.6.17
+    container_name: monetivo-edd-4.7.2-2.6.17
+    ports:
+      - 8002:80
+    volumes:
+      - ./source:/var/www/html
+    environment:
+      WORDPRESS_DB_PASSWORD: example
+    command: apache2-foreground
+
+  mysql:
+    image: mariadb
+    container_name: mariadb-edd-4.7.2-2.6.17
+    environment:
+      MYSQL_ROOT_PASSWORD: example
