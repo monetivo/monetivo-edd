@@ -11,7 +11,7 @@ class edd_monetivo_gateway
     protected $woocommerce;
 
     public static $supported_currencies = array( 'PLN' );
-    private $plugin_version = '1.0.0';
+    private $plugin_version = '1.0.1';
     private $token_cache = 60 * 4;
 
     public function init()
@@ -45,13 +45,15 @@ class edd_monetivo_gateway
     {
         $errors = 0;
 
+        // check if options were defined
         if ( ! edd_get_option( 'mvo_edd_pos_id' ) || ! edd_get_option( 'mvo_edd_app_token' ) || ! edd_get_option( 'mvo_edd_login' ) || ! edd_get_option( 'mvo_edd_password' ) ) {
             $this->add_admin_notice( 'Wtyczka Monetivo dla Easy Digital Downloads nie jest skonfigurowana' );
             $errors++;
         }
 
-        if ( edd_is_test_mode() ) {
-            $this->add_admin_notice( 'Monetivo: wtyczka Easy Digital Downloads została przełączona w tryb testowy. Upewnij się, że dane dostępowe Monetivo są prawidłowe.' );
+        // check if plugin was configured in test mode
+        if ( false !== edd_get_option( 'mvo_edd_app_token' ) && false !== strpos( edd_get_option( 'mvo_edd_app_token' ), 'test' ) ) {
+            $this->add_admin_notice( 'Wtyczka Monetivo dla Easy Digital Downloads została skonfigurowana w trybie testowym! Pamiętaj o zmianie danych logowania by móc przyjmować rzeczywiste płatności.' );
         }
 
         if ( $errors > 0 ) {
@@ -196,7 +198,7 @@ class edd_monetivo_gateway
 
         // override API endpoint if sandbox mode was enabled as env variable or test mode was enabled in EDD settings
         $sandbox_mode = getenv( 'MONETIVO_API_SANDBOX' );
-        if ( $sandbox_mode || edd_is_test_mode() ) {
+        if ( $sandbox_mode ) {
             $client->setSandboxMode();
         }
 
@@ -307,7 +309,7 @@ class edd_monetivo_gateway
 
         // setup urls
         $return_url = add_query_arg( array( 'payment-confirmation' => $this->gateway_id, 'payment-id' => $payment ), get_permalink( edd_get_option( 'success_page', false ) ) );
-        $notify_url = add_query_arg( 'edd-listener', $this->gateway_id, trailingslashit(home_url()) );
+        $notify_url = add_query_arg( 'edd-listener', $this->gateway_id, trailingslashit( home_url() ) );
 
         $this->write_log( $notify_url );
 
