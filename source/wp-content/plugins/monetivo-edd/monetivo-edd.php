@@ -10,7 +10,7 @@
  * Description: Bramka płatności Monetivo do Easy Digital Downloads.
  * Author: Monetivo
  * Author URI: https://monetivo.com
- * Version: 1.0.0
+ * Version: 1.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

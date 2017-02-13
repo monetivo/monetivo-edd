@@ -4,7 +4,7 @@ Donate link: https://monetivo.com/
 Tags: edd, payment, polska brama płatności, bramka płatności, płatności internetowe, płatności online
 Requires at least: 3.0.1
 Tested up to: 4.7.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: MIT
 Improve customer experience and conversions by accepting payments from polish banks directly on your Easy Digital Downloads site.
 
@@ -39,9 +39,9 @@ b)	Skopiuj cały folder do katalogu wp-content/plugins znajdującego się w Twoj
 = KONFIGURACJA WTYCZKI =
 
 1.	Przejdź do ustawień Easy Digital Downloads: Downloads -> Settings
-2.  Skonfigurj walutę w zakładce Currency Settings - obecnie Monetivo akceptuje następujące waluty: PLN.
+2.  Skonfiguruj walutę w zakładce Currency Settings - obecnie Monetivo akceptuje następujące waluty: PLN.
 3.  Przejdź do zakładki Payment Gateways, a następnie zaznacz "Monetivo" na liście metod płatności. Jako Default Gateway wybierz Monetivo.
-4.	Przejdź do zakładki Monetivo a następnie skonfiguruj bramkę podając dane uzyskane w Panelu Merchanta:
+4.	Przejdź do zakładki Monetivo a następnie skonfiguruj bramkę podając dane uzyskane w Panelu Merchanta.
 5.	Kliknij „Zapisz zmiany”. Wtyczka spróbuje nawiązać połączenie z systemem Monetivo weryfikując tym samym poprawność wpisanych danych.
 
 
@@ -52,6 +52,9 @@ b)	Skopiuj cały folder do katalogu wp-content/plugins znajdującego się w Twoj
 == Changelog ==
 1.0.0 2017-01-27
 Wersja stabilna
+
+1.0.1 2017-02-13
+Uaktualnienie klienta API; poprawki błędów
 
 == Frequently Asked Questions ==
 Feel free to contact us on hello@monetivo.com

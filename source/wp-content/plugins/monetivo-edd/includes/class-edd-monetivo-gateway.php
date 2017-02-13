@@ -46,7 +46,7 @@ class edd_monetivo_gateway
         $errors = 0;
 
         // check if options were defined
-        if ( ! edd_get_option( 'mvo_edd_pos_id' ) || ! edd_get_option( 'mvo_edd_app_token' ) || ! edd_get_option( 'mvo_edd_login' ) || ! edd_get_option( 'mvo_edd_password' ) ) {
+        if ( ! edd_get_option( 'mvo_edd_app_token' ) || ! edd_get_option( 'mvo_edd_login' ) || ! edd_get_option( 'mvo_edd_password' ) ) {
             $this->add_admin_notice( 'Wtyczka Monetivo dla Easy Digital Downloads nie jest skonfigurowana' );
             $errors++;
         }
@@ -74,10 +74,6 @@ class edd_monetivo_gateway
         // check settings and add errors
         $settings = array_map( 'trim', $settings );
         $settings = array_map( 'sanitize_text_field', $settings );
-        if ( empty( $settings[ 'mvo_edd_pos_id' ] ) ) {
-            add_settings_error( 'edd-notices', '', 'Monetivo: identyfikator POS jest wymagany' );
-            unset( $settings[ 'mvo_edd_pos_id' ] );
-        }
 
         if ( empty( $settings[ 'mvo_edd_app_token' ] ) ) {
             add_settings_error( 'edd-notices', '', 'Monetivo: token aplikacji jest wymagany' );
@@ -95,7 +91,7 @@ class edd_monetivo_gateway
         }
 
         // if some setting was ommited, it was probably invalid. In that case, just return to the Settings page and do not invoke credentials validation
-        if ( count( $settings ) < 5 ) {
+        if ( count( $settings ) < 4 ) {
             return $settings;
         }
 
@@ -321,7 +317,6 @@ class edd_monetivo_gateway
 
         // gather all parameters together according to the docs
         $params = array(
-            'pos_id' => edd_get_option( 'mvo_edd_pos_id' ),
             'order_data' => [
                 'description' => $desc,
                 'order_id' => $payment ],

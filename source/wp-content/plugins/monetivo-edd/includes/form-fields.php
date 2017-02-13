@@ -14,12 +14,6 @@ return array(
         'type' => 'text',
     ),
     array(
-        'id' => 'mvo_edd_pos_id',
-        'name' => __( 'Identyfikator POS', 'monetivo' ),
-        'desc' => __('Dane znajdziesz w Panelu Merchanta', 'monetivo'),
-        'type' => 'text',
-    ),
-    array(
         'id' => 'mvo_edd_app_token',
         'name' => __( 'Token aplikacji', 'monetivo' ),
         'desc' => __( 'Token aplikacji nadany w systemie Monetivo.', 'monetivo' ),

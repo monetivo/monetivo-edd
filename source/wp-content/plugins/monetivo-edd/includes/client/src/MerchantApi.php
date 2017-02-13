@@ -29,7 +29,7 @@ class MerchantApi
     /**
      * Merchant API client version
      */
-    const CLIENT_VERSION = '1.0.7';
+    const CLIENT_VERSION = '1.0.9';
 
     /**
      * Name of request headers
@@ -58,6 +58,11 @@ class MerchantApi
      * @var string
      */
     private $current_api_endpoint;
+
+    /**
+     * @var array \Closure
+     */
+    private $callbacks = [];
 
     /**
      * @var array languages supported by the API
@@ -376,6 +381,21 @@ class MerchantApi
 
         $this->auth_token = $token;
 
+        // invoke callback
+        if(!empty($this->callbacks[__FUNCTION__]) && is_callable($this->callbacks[__FUNCTION__])) {
+            $this->callbacks[__FUNCTION__]($token);
+        }
+
+    }
+
+    /**
+     * Use to set custom callback function on setAuthToken execution.
+     * Useful to capture token auto-renew eg. for storing it in session.
+     * @param \Closure $func
+     */
+    public function setAuthTokenCallback(\Closure $func)
+    {
+        $this->callbacks['setAuthToken'] = $func;
     }
 
     /** Enables logging communication with API to file
